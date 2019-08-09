@@ -1,6 +1,6 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+let _createClass = function () { function defineProperties(target, props) { for (let i = 0; i < props.length; i++) { let descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8,13 +8,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BoardView = function (_React$Component) {
+let BoardView = function (_React$Component) {
   _inherits(BoardView, _React$Component);
 
   function BoardView(props) {
     _classCallCheck(this, BoardView);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BoardView).call(this, props));
+    let _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BoardView).call(this, props));
 
     _this.state = { board: new Board() };
     return _this;
@@ -33,7 +33,7 @@ var BoardView = function (_React$Component) {
       }
       if (event.keyCode >= 37 && event.keyCode <= 40) {
         event.preventDefault();
-        var direction = event.keyCode - 37;
+        let direction = event.keyCode - 37;
         this.setState({ board: this.state.board.move(direction) });
       }
     }
@@ -59,9 +59,9 @@ var BoardView = function (_React$Component) {
       if (event.changedTouches.length != 1) {
         return;
       }
-      var deltaX = event.changedTouches[0].screenX - this.startX;
-      var deltaY = event.changedTouches[0].screenY - this.startY;
-      var direction = -1;
+      let deltaX = event.changedTouches[0].screenX - this.startX;
+      let deltaY = event.changedTouches[0].screenY - this.startY;
+      let direction = -1;
       if (Math.abs(deltaX) > 3 * Math.abs(deltaY) && Math.abs(deltaX) > 30) {
         direction = deltaX > 0 ? 2 : 0;
       } else if (Math.abs(deltaY) > 3 * Math.abs(deltaX) && Math.abs(deltaY) > 30) {
@@ -84,7 +84,7 @@ var BoardView = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var cells = this.state.board.cells.map(function (row, rowIndex) {
+      let cells = this.state.board.cells.map(function (row, rowIndex) {
         return React.createElement(
           'div',
           { key: rowIndex },
@@ -93,7 +93,7 @@ var BoardView = function (_React$Component) {
           })
         );
       });
-      var tiles = this.state.board.tiles.filter(function (tile) {
+      let tiles = this.state.board.tiles.filter(function (tile) {
         return tile.value != 0;
       }).map(function (tile) {
         return React.createElement(TileView, { tile: tile, key: tile.id });
@@ -113,7 +113,7 @@ var BoardView = function (_React$Component) {
 
 ;
 
-var Cell = function (_React$Component2) {
+let Cell = function (_React$Component2) {
   _inherits(Cell, _React$Component2);
 
   function Cell() {
@@ -143,7 +143,7 @@ var Cell = function (_React$Component2) {
 
 ;
 
-var TileView = function (_React$Component3) {
+let TileView = function (_React$Component3) {
   _inherits(TileView, _React$Component3);
 
   function TileView() {
@@ -166,8 +166,8 @@ var TileView = function (_React$Component3) {
   }, {
     key: 'render',
     value: function render() {
-      var tile = this.props.tile;
-      var classArray = ['tile'];
+      let tile = this.props.tile;
+      let classArray = ['tile'];
       classArray.push('tile' + this.props.tile.value);
       if (!tile.mergedInto) {
         classArray.push('position_' + tile.row + '_' + tile.column);
@@ -183,7 +183,7 @@ var TileView = function (_React$Component3) {
         classArray.push('column_from_' + tile.fromColumn() + '_to_' + tile.toColumn());
         classArray.push('isMoving');
       }
-      var classes = classArray.join(' ');
+      let classes = classArray.join(' ');
       return React.createElement(
         'span',
         { className: classes },
@@ -195,11 +195,11 @@ var TileView = function (_React$Component3) {
   return TileView;
 }(React.Component);
 
-var GameEndOverlay = function GameEndOverlay(_ref) {
-  var board = _ref.board;
-  var onRestart = _ref.onRestart;
+let GameEndOverlay = function GameEndOverlay(_ref) {
+  let board = _ref.board;
+  let onRestart = _ref.onRestart;
 
-  var contents = '';
+  let contents = '';
   if (board.hasWon()) {
     contents = 'Good Job!';
   } else if (board.hasLost()) {

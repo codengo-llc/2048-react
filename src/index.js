@@ -12,7 +12,7 @@ class BoardView extends React.Component {
     }
     if (event.keyCode >= 37 && event.keyCode <= 40) {
       event.preventDefault();
-      var direction = event.keyCode - 37;
+      let direction = event.keyCode - 37;
       this.setState({board: this.state.board.move(direction)});
     }
   }
@@ -34,9 +34,9 @@ class BoardView extends React.Component {
     if (event.changedTouches.length != 1) {
       return;
     }
-    var deltaX = event.changedTouches[0].screenX - this.startX;
-    var deltaY = event.changedTouches[0].screenY - this.startY;
-    var direction = -1;
+    let deltaX = event.changedTouches[0].screenX - this.startX;
+    let deltaY = event.changedTouches[0].screenY - this.startY;
+    let direction = -1;
     if (Math.abs(deltaX) > 3 * Math.abs(deltaY) && Math.abs(deltaX) > 30) {
       direction = deltaX > 0 ? 2 : 0;
     } else if (Math.abs(deltaY) > 3 * Math.abs(deltaX) && Math.abs(deltaY) > 30) {
@@ -53,14 +53,14 @@ class BoardView extends React.Component {
     window.removeEventListener('keydown', this.handleKeyDown.bind(this));
   }
   render() {
-    var cells = this.state.board.cells.map((row, rowIndex) => {
+    let cells = this.state.board.cells.map((row, rowIndex) => {
       return (
         <div key={rowIndex}>
           { row.map((_, columnIndex) => <Cell key={rowIndex * Board.size + columnIndex} />) }
         </div>
       );
     });
-    var tiles = this.state.board.tiles
+    let tiles = this.state.board.tiles
       .filter(tile => tile.value != 0)
       .map(tile => <TileView tile={tile} key={tile.id} />);
     return (
@@ -95,8 +95,8 @@ class TileView extends React.Component {
     return true;
   }
   render() {
-    var tile = this.props.tile;
-    var classArray = ['tile'];
+    let tile = this.props.tile;
+    let classArray = ['tile'];
     classArray.push('tile' + this.props.tile.value);
     if (!tile.mergedInto) {
       classArray.push('position_' + tile.row + '_' + tile.column);
@@ -112,15 +112,15 @@ class TileView extends React.Component {
       classArray.push('column_from_' + tile.fromColumn() + '_to_' + tile.toColumn());
       classArray.push('isMoving');
     }
-    var classes = classArray.join(' ');
+    let classes = classArray.join(' ');
     return (
       <span className={classes}>{tile.value}</span>
     );
   }
 }
 
-var GameEndOverlay = ({board, onRestart}) => {
-  var contents = '';
+let GameEndOverlay = ({board, onRestart}) => {
+  let contents = '';
   if (board.hasWon()) {
     contents = 'Good Job!';
   } else if (board.hasLost()) {

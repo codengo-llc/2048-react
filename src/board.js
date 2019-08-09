@@ -1,17 +1,17 @@
-var rotateLeft = function (matrix) {
-  var rows = matrix.length;
-  var columns = matrix[0].length;
-  var res = [];
-  for (var row = 0; row < rows; ++row) {
+let rotateLeft = function (matrix) {
+  let rows = matrix.length;
+  let columns = matrix[0].length;
+  let res = [];
+  for (let row = 0; row < rows; ++row) {
     res.push([]);
-    for (var column = 0; column < columns; ++column) {
+    for (let column = 0; column < columns; ++column) {
       res[row][column] = matrix[column][columns - row - 1];
     }
   }
   return res;
 };
 
-var Tile = function (value, row, column) {
+let Tile = function (value, row, column) {
   this.value = value || 0;
   this.row = row || -1;
   this.column = column || -1;
@@ -56,10 +56,10 @@ Tile.prototype.toColumn = function () {
   return this.mergedInto ? this.mergedInto.column : this.column;
 };
 
-var Board = function () {
+let Board = function () {
   this.tiles = [];
   this.cells = [];
-  for (var i = 0; i < Board.size; ++i) {
+  for (let i = 0; i < Board.size; ++i) {
     this.cells[i] = [this.addTile(), this.addTile(), this.addTile(), this.addTile()];
   }
   this.addRandomTile();
@@ -68,7 +68,7 @@ var Board = function () {
 };
 
 Board.prototype.addTile = function () {
-  var res = new Tile;
+  let res = new Tile;
   Tile.apply(res, arguments);
   this.tiles.push(res);
   return res;
@@ -77,17 +77,17 @@ Board.prototype.addTile = function () {
 Board.size = 4;
 
 Board.prototype.moveLeft = function () {
-  var hasChanged = false;
-  for (var row = 0; row < Board.size; ++row) {
-    var currentRow = this.cells[row].filter(tile => tile.value != 0);
-    var resultRow = [];
-    for (var target = 0; target < Board.size; ++target) {
-      var targetTile = currentRow.length ? currentRow.shift() : this.addTile();
+  let hasChanged = false;
+  for (let row = 0; row < Board.size; ++row) {
+    let currentRow = this.cells[row].filter(tile => tile.value != 0);
+    let resultRow = [];
+    for (let target = 0; target < Board.size; ++target) {
+      let targetTile = currentRow.length ? currentRow.shift() : this.addTile();
       if (currentRow.length > 0 && currentRow[0].value == targetTile.value) {
-        var tile1 = targetTile;
+        let tile1 = targetTile;
         targetTile = this.addTile(targetTile.value);
         tile1.mergedInto = targetTile;
-        var tile2 = currentRow.shift();
+        let tile2 = currentRow.shift();
         tile2.mergedInto = targetTile;
         targetTile.value += tile2.value;
       }
@@ -115,28 +115,28 @@ Board.prototype.setPositions = function () {
 Board.fourProbability = 0.1;
 
 Board.prototype.addRandomTile = function () {
-  var emptyCells = [];
-  for (var r = 0; r < Board.size; ++r) {
-    for (var c = 0; c < Board.size; ++c) {
+  let emptyCells = [];
+  for (let r = 0; r < Board.size; ++r) {
+    for (let c = 0; c < Board.size; ++c) {
       if (this.cells[r][c].value == 0) {
         emptyCells.push({r: r, c: c});
       }
     }
   }
-  var index = ~~(Math.random() * emptyCells.length);
-  var cell = emptyCells[index];
-  var newValue = Math.random() < Board.fourProbability ? 4 : 2;
+  let index = ~~(Math.random() * emptyCells.length);
+  let cell = emptyCells[index];
+  let newValue = Math.random() < Board.fourProbability ? 4 : 2;
   this.cells[cell.r][cell.c] = this.addTile(newValue);
 };
 
 Board.prototype.move = function (direction) {
   // 0 -> left, 1 -> up, 2 -> right, 3 -> down
   this.clearOldTiles();
-  for (var i = 0; i < direction; ++i) {
+  for (let i = 0; i < direction; ++i) {
     this.cells = rotateLeft(this.cells);
   }
-  var hasChanged = this.moveLeft();
-  for (var i = direction; i < 4; ++i) {
+  let hasChanged = this.moveLeft();
+  for (let i = direction; i < 4; ++i) {
     this.cells = rotateLeft(this.cells);
   }
   if (hasChanged) {
@@ -159,13 +159,13 @@ Board.deltaX = [-1, 0, 1, 0];
 Board.deltaY = [0, -1, 0, 1];
 
 Board.prototype.hasLost = function () {
-  var canMove = false;
-  for (var row = 0; row < Board.size; ++row) {
-    for (var column = 0; column < Board.size; ++column) {
+  let canMove = false;
+  for (let row = 0; row < Board.size; ++row) {
+    for (let column = 0; column < Board.size; ++column) {
       canMove |= (this.cells[row][column].value == 0);
-      for (var dir = 0; dir < 4; ++dir) {
-        var newRow = row + Board.deltaX[dir];
-        var newColumn = column + Board.deltaY[dir];
+      for (let dir = 0; dir < 4; ++dir) {
+        let newRow = row + Board.deltaX[dir];
+        let newColumn = column + Board.deltaY[dir];
         if (newRow < 0 || newRow >= Board.size || newColumn < 0 || newColumn >= Board.size) {
           continue;
         }

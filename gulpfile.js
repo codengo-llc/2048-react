@@ -1,10 +1,10 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var prefix = require('gulp-autoprefixer');
-var babel = require('gulp-babel');
+let gulp = require('gulp');
+let sass = require('gulp-sass');
+let prefix = require('gulp-autoprefixer');
+let babel = require('gulp-babel');
 
-var styles = 'src/*.scss';
-var scripts = 'src/*.js';
+let styles = 'src/*.scss';
+let scripts = 'src/*.js';
 
 gulp.task('styles', function () {
   return gulp.src(styles)

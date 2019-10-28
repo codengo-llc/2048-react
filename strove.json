@@ -1,0 +1,4 @@
+{
+ "init": "yarn && yarn start",
+ "ports": [1000, 2200, 3400]
+}

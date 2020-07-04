@@ -1,4 +1,4 @@
 {
- "init": "yarn && yarn start",
+ "init": "cd 2048-clone && yarn && yarn start",
  "ports": [1000, 2200, 3400]
 }
